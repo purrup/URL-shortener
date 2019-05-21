@@ -7,7 +7,9 @@ const mongoose = require('mongoose')
 const Url = require('./models/url')
 const generateShortUrl = require('./public/javascripts/generateShortUrl')
 
-mongoose.connect('mongodb://localhost/shortURL', { useNewUrlParser: true })
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/shortURL', {
+  useNewUrlParser: true,
+})
 const db = mongoose.connection
 db.on('error', () => {
   console.log('mongodb error!')
