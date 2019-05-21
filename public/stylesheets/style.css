@@ -9,6 +9,10 @@ form {
   min-width: 80%;
 }
 
+#display-shortenUrl {
+  margin-bottom: 0;
+}
+
 /* input {
   margin-right: 15%;
 } */

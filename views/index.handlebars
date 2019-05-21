@@ -1,23 +1,29 @@
 <div class="container">
   <div class="row">
-    <form action="/new" method="post" class="url-input d-flex flex-md-row justify-content-between" novalidate>
+    <form action="/" method="post" class="url-input d-flex flex-md-row justify-content-between" novalidate>
 
       <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-link"></i></span>
-        </div>
-        <input type="text" class="form-control form-control-lg" placeholder="URL shortener" name="originUrl" required>
+
+        <input type="url" class="form-control form-control-lg" placeholder="URL shortener" name="originUrl" required>
 
         <div class="input-group-append">
           <button type="submit" class="btn btn-lg btn-primary">產生縮網址</button>
         </div>
         <div class="invalid-feedback">
-          Please enter an url.
+          Please enter an "url".
         </div>
       </div>
 
     </form>
   </div>
+  {{#if newUrl}}
+  <div class="row mt-5">
+    <div class="alert alert-primary" role="alert" id="display-shortenUrl">
+      your shorten url is <a href="#" class="alert-link"> localhost:3000/{{newUrl}}</a>
+    </div>
+    <button class="btn btn-secondary"><i class="fas fa-link"></i></button>
+  </div>
+  {{/if}}
 </div>
 <script>
   (function () {

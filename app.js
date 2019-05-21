@@ -5,6 +5,7 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const Url = require('./models/url')
+const generateShortUrl = require('./public/javascripts/generateShortUrl')
 
 mongoose.connect('mongodb://localhost/shortURL', { useNewUrlParser: true })
 const db = mongoose.connection
@@ -26,18 +27,22 @@ app.get('/', (req, res) => {
 })
 
 // 新增一個縮網址
-app.post('/new', (req, res) => {
-  console.log(req.body.originUrl)
-  // 隨機產出5個英文字母及數字的變數
-  const shortUrl = ''
-  const url = Url({
+app.post('/', (req, res) => {
+  const newUrl = new Url({
     originUrl: req.body.originUrl,
+    shortUrl: generateShortUrl(),
   })
-
-  url.save(err => {
-    err ? console.error(err) : res.redirect('/')
+  console.log(newUrl)
+  newUrl.save(err => {
+    err ? console.error(err) : res.render('index', { newUrl: newUrl.shortUrl })
   })
 })
+
+// 轉址
+// app.get('/:shortenUrl', (req, res) => {
+//   res.send('shortenUrl')
+//   // 從資料庫比對網址，找出原始網址，重新導向
+// })
 
 app.listen(port, () => {
   console.log(`APP is running on localhost:${port}`)
