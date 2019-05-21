@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <form action="/" method="post" class="d-flex flex-md-row justify-content-between" novalidate>
+      <i class="fas fa-link"></i>
+      <input class="form-control form-control-lg" type="text" placeholder="URL shortener" required>
+      <div class="invalid-feedback">
+        Please enter an url.
+      </div>
+      <button type="submit" class="btn btn-lg btn-primary">產生縮網址</button>
+    </form>
+  </div>
+</div>
+<script>
+  (function () {
+    'use strict';
+    window.addEventListener('load', function () {
+      var forms = document.getElementsByClassName('needs-validation');
+      var validation = Array.prototype.filter.call(forms, function (form) {
+        form.addEventListener('submit', function (event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+</script>

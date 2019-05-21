@@ -15,12 +15,12 @@ db.once('open', () => {
 })
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
-app.set('view engine', 'express-handlebars')
+app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
-  res.send('URL shortener')
+  res.render('index')
 })
 
 app.listen(port, () => {
