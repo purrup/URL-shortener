@@ -7,8 +7,9 @@ const symbols = '`~!@$%^&*()-_+={}[]|;:"<>,.?/'
 const originMaterial = [...lowerCaseLetters].concat(
   [...upperCaseLetters],
   [...numbers],
-  ...[symbols]
+  [...symbols]
 )
+let results = ''
 
 // 隨機挑選陣列中的一個值
 const randomArr = arr => arr[Math.floor(Math.random() * arr.length)]
@@ -19,15 +20,15 @@ const checkUrl = results => {
     if (err) return console.error(err)
     //如果縮網址變數和資料庫重複
     if (url.length > 0) {
-      // console.log('url exists!', url)
       generateShortUrl()
     }
+    // 如果縮網址變數和資料庫沒有重複
     if (url.length === 0) return results
   })
 }
 
 const generateShortUrl = () => {
-  let results = ''
+  results = ''
   // for loop 挑選五個變數組合
   for (let i = 0; i < 5; i++) {
     results += randomArr(originMaterial)

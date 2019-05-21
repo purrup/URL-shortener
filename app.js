@@ -28,21 +28,39 @@ app.get('/', (req, res) => {
 
 // 新增一個縮網址
 app.post('/', (req, res) => {
-  const newUrl = new Url({
-    originUrl: req.body.originUrl,
-    shortUrl: generateShortUrl(),
-  })
-  console.log(newUrl)
-  newUrl.save(err => {
-    err ? console.error(err) : res.render('index', { newUrl: newUrl.shortUrl })
-  })
+  // 判斷此網址有無在Url中
+  Url.findOne(
+    {
+      originUrl: req.body.originUrl,
+    },
+    (err, url) => {
+      if (err) console.error(err)
+      //如果沒有重複的原始網址，新增縮網址
+      if (!url) {
+        const newUrl = new Url({
+          originUrl: req.body.originUrl,
+          shortUrl: generateShortUrl(),
+        })
+        console.log(newUrl)
+        newUrl.save(err => {
+          err
+            ? console.error(err)
+            : res.render('index', { newUrl: newUrl.shortUrl })
+        })
+      } else {
+        // 如果有重複的原始網址
+        const existedOriginUrl = url.shortUrl
+        return res.render('index', { existedOriginUrl })
+      }
+    }
+  )
 })
 
 // 轉址
-// app.get('/:shortenUrl', (req, res) => {
-//   res.send('shortenUrl')
-//   // 從資料庫比對網址，找出原始網址，重新導向
-// })
+app.get('/:shortenUrl', (req, res) => {
+  res.send('shortenUrl')
+  // 從資料庫比對網址，找出原始網址，重新導向
+})
 
 app.listen(port, () => {
   console.log(`APP is running on localhost:${port}`)
