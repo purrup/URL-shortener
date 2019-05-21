@@ -9,6 +9,7 @@ const generateShortUrl = require('./public/javascripts/generateShortUrl')
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/shortURL', {
   useNewUrlParser: true,
+  useCreateIndex: true,
 })
 const db = mongoose.connection
 db.on('error', () => {
