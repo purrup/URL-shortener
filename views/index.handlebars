@@ -1,12 +1,21 @@
 <div class="container">
   <div class="row">
-    <form action="/" method="post" class="d-flex flex-md-row justify-content-between" novalidate>
-      <i class="fas fa-link"></i>
-      <input class="form-control form-control-lg" type="text" placeholder="URL shortener" required>
-      <div class="invalid-feedback">
-        Please enter an url.
+    <form action="/new" method="post" class="url-input d-flex flex-md-row justify-content-between" novalidate>
+
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-link"></i></span>
+        </div>
+        <input type="text" class="form-control form-control-lg" placeholder="URL shortener" name="originUrl" required>
+
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-lg btn-primary">產生縮網址</button>
+        </div>
+        <div class="invalid-feedback">
+          Please enter an url.
+        </div>
       </div>
-      <button type="submit" class="btn btn-lg btn-primary">產生縮網址</button>
+
     </form>
   </div>
 </div>
@@ -14,7 +23,7 @@
   (function () {
     'use strict';
     window.addEventListener('load', function () {
-      var forms = document.getElementsByClassName('needs-validation');
+      var forms = document.getElementsByClassName('url-input');
       var validation = Array.prototype.filter.call(forms, function (form) {
         form.addEventListener('submit', function (event) {
           if (form.checkValidity() === false) {

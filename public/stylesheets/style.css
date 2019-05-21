@@ -1,25 +1,23 @@
 .container {
   display: block;
   width: 100%;
-  margin: 0 auto;
-}
-.row {
-  margin-top: 40%;
+  margin: auto;
+  margin-top: 20%;
 }
 
 form {
   min-width: 80%;
 }
 
-input {
-  margin-right: 5%;
-}
+/* input {
+  margin-right: 15%;
+} */
 
-i {
+/* i {
   font-size: 3em;
   margin-right: 5%;
 }
 
 button {
   width: 25%;
-}
+} */
