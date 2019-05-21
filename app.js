@@ -1,5 +1,8 @@
 const express = require('express')
 const app = express()
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 const port = 3000
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
