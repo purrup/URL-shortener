@@ -71,7 +71,6 @@ app.get('/:shortenUrl', (req, res) => {
     },
     (err, url) => {
       if (err) console.error(err)
-      // 取出的 url 是陣列
       if (url) {
         res.redirect(url.originUrl)
       } else {
