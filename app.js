@@ -72,6 +72,6 @@ app.get('/:shortenUrl', (req, res) => {
   )
 })
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(`APP is running on localhost:${port}`)
 })
