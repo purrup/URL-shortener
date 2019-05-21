@@ -19,7 +19,7 @@
   {{#if newUrl}}
   <div class="row mt-5">
     <div class="alert alert-primary" role="alert" id="display-shortenUrl">
-      your shorten url is <a href="#" class="alert-link"> localhost:3000/{{newUrl}}</a>
+      your shorten url is <a href="http://localhost:3000/{{{newUrl}}}" class="alert-link"> localhost:3000/{{newUrl}}</a>
       {{!-- <button type="button" class="close ml-3" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button> --}}
@@ -32,7 +32,9 @@
   {{#if existedOriginUrl}}
   <div class="row mt-5">
     <div class="alert alert-primary" role="alert" id="display-shortenUrl">
-      <a href="#" class="alert-link">此網址已有縮網址: localhost:3000/{{existedOriginUrl}}</a>
+      此網址已有縮網址:
+      <a href="http://localhost:3000/{{{existedOriginUrl}}}" class="alert-link">
+        localhost:3000/{{existedOriginUrl}}</a>
       <button type="button" class="close ml-3" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>

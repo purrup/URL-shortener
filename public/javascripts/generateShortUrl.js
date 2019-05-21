@@ -2,12 +2,11 @@ const Url = require('../../models/url')
 const lowerCaseLetters = 'abcdefghiklmnopqrstuvwxyz'
 const upperCaseLetters = lowerCaseLetters.toUpperCase()
 const numbers = '1234567890'
-const symbols = '`~!@$%^&*()-_+={}[]|;:"<>,.?/'
+
 // 把變數的材料全部變成陣列放一起
 const originMaterial = [...lowerCaseLetters].concat(
   [...upperCaseLetters],
-  [...numbers],
-  [...symbols]
+  [...numbers]
 )
 let results = ''
 

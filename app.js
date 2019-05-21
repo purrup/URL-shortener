@@ -41,7 +41,6 @@ app.post('/', (req, res) => {
           originUrl: req.body.originUrl,
           shortUrl: generateShortUrl(),
         })
-        console.log(newUrl)
         newUrl.save(err => {
           err
             ? console.error(err)
@@ -58,12 +57,19 @@ app.post('/', (req, res) => {
 
 // 轉址
 app.get('/:shortenUrl', (req, res) => {
-  res.send('shortenUrl')
   // 從資料庫比對網址，找出原始網址，重新導向
+  Url.find(
+    {
+      shortUrl: req.params.shortenUrl,
+    },
+    (err, url) => {
+      if (err) console.error(err)
+      // 取出的 url 是陣列
+      res.redirect(`${url[0].originUrl}`)
+    }
+  )
 })
 
 app.listen(port, () => {
   console.log(`APP is running on localhost:${port}`)
 })
-
-// 輸入網址 >> 隨機產出5個英文字母及數字的變數 >> 判斷變數是否重複，若重複，重新產生，若無 >> 將原址網址及變數存入資料庫 >> 返回縮網址給使用者，localhost:3000/變數
