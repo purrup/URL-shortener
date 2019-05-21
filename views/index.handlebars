@@ -23,11 +23,9 @@
   <div class="row mt-5 d-md-flex flex-row justify-content-center">
     <div class="alert alert-primary" role="alert" id="display-shortenUrl">
       your shorten url is
-      <a href="http://localhost:3000/{{{newUrl}}}" class="alert-link" id="url">
-        localhost:3000/{{newUrl}}</a>
+      <a href="{{{newUrl}}}" class="alert-link" id="url">{{newUrl}}</a>
     </div>
-    <button class="btn btn-secondary copy" data-clipboard-text="http://localhost:3000/{{{newUrl}}}"><i
-        class="fas fa-link"></i></button>
+    <button class="btn btn-secondary copy" data-clipboard-text="{{{newUrl}}}"><i class="fas fa-link"></i></button>
   </div>
   {{/if}}
 
@@ -36,8 +34,7 @@
   <div class="row mt-5 d-md-flex flex-row justify-content-center">
     <div class="alert alert-primary" role="alert" id="display-shortenUrl">
       此網址已有縮網址:
-      <a href="http://localhost:3000/{{{existedOriginUrl}}}" class="alert-link">
-        localhost:3000/{{existedOriginUrl}}</a>
+      <a href="{{{existedOriginUrl}}}" class="alert-link">{{existedOriginUrl}}</a>
       <button type="button" class="close ml-3" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>

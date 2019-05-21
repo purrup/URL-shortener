@@ -42,6 +42,7 @@ app.post('/', (req, res) => {
     (err, url) => {
       if (err) console.error(err)
       //如果沒有重複的原始網址，新增縮網址
+      const domainUrl = process.env.HEROKU_URL || 'http://localhost:3000/'
       if (!url) {
         const newUrl = new Url({
           originUrl: req.body.originUrl,
@@ -50,11 +51,11 @@ app.post('/', (req, res) => {
         newUrl.save(err => {
           err
             ? console.error(err)
-            : res.render('index', { newUrl: newUrl.shortUrl })
+            : res.render('index', { newUrl: domainUrl + newUrl.shortUrl })
         })
       } else {
         // 如果有重複的原始網址
-        const existedOriginUrl = url.shortUrl
+        const existedOriginUrl = domainUrl + url.shortUrl
         return res.render('index', { existedOriginUrl })
       }
     }
@@ -64,14 +65,18 @@ app.post('/', (req, res) => {
 // 轉址
 app.get('/:shortenUrl', (req, res) => {
   // 從資料庫比對網址，找出原始網址，重新導向
-  Url.find(
+  Url.findOne(
     {
       shortUrl: req.params.shortenUrl,
     },
     (err, url) => {
       if (err) console.error(err)
       // 取出的 url 是陣列
-      res.redirect(`${url[0].originUrl}`)
+      if (url) {
+        res.redirect(url.originUrl)
+      } else {
+        res.redirect('/')
+      }
     }
   )
 })
