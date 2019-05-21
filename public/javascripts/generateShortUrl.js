@@ -4,6 +4,7 @@ const upperCaseLetters = lowerCaseLetters.toUpperCase()
 const numbers = '1234567890'
 
 // 把變數的材料全部變成陣列放一起
+// 使用符號時params會無法decoded，無法正確重新導向
 const originMaterial = [...lowerCaseLetters].concat(
   [...upperCaseLetters],
   [...numbers]

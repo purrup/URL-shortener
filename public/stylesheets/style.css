@@ -1,8 +1,12 @@
+* {
+  font-family: 'Roboto Mono', monospace;
+}
+
 .container {
   display: block;
   width: 100%;
   margin: auto;
-  margin-top: 20%;
+  margin-top: 15%;
 }
 
 form {
@@ -13,15 +17,10 @@ form {
   margin-bottom: 0;
 }
 
-/* input {
-  margin-right: 15%;
-} */
-
-/* i {
-  font-size: 3em;
-  margin-right: 5%;
+input.form-control {
+  font-size: 1.5em;
 }
 
-button {
-  width: 25%;
-} */
+.alert {
+  font-size: 1.4em;
+}
