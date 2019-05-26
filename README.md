@@ -6,8 +6,6 @@
 
 ![image](https://github.com/purrup/URL-shortener/blob/master/public/img/index.png)
 
-## 安裝指示
-
 ---
 
 # Installing

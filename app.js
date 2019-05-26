@@ -22,6 +22,34 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
+// 判斷原網址有無在Url中
+const findOriginUrl = url => {
+  return new Promise((resolve, reject) => {
+    Url.findOne(
+      {
+        originUrl: url,
+      },
+      (err, url) => {
+        err ? reject(console.error(err)) : resolve(url)
+      }
+    )
+  })
+}
+
+// 判斷短網址有無在Url中
+const findShortUrl = url => {
+  return new Promise((resolve, reject) => {
+    Url.findOne(
+      {
+        shortUrl: url,
+      },
+      (err, url) => {
+        err ? reject(console.error(err)) : resolve(url)
+      }
+    )
+  })
+}
+
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
@@ -34,13 +62,8 @@ app.get('/', (req, res) => {
 
 // 新增一個縮網址
 app.post('/', (req, res) => {
-  // 判斷此網址有無在Url中
-  Url.findOne(
-    {
-      originUrl: req.body.originUrl,
-    },
-    (err, url) => {
-      if (err) console.error(err)
+  findOriginUrl(req.body.originUrl)
+    .then(url => {
       //如果沒有重複的原始網址，新增縮網址
       const domainUrl = process.env.HEROKU_URL || 'http://localhost:3000/'
       if (!url) {
@@ -54,30 +77,28 @@ app.post('/', (req, res) => {
             : res.render('index', { newUrl: domainUrl + newUrl.shortUrl })
         })
       } else {
-        // 如果有重複的原始網址
+        // 如果有重複的原始網址，回傳給使用者知道
         const existedOriginUrl = domainUrl + url.shortUrl
         return res.render('index', { existedOriginUrl })
       }
-    }
-  )
+    })
+    .catch(error => {
+      console.warn(error)
+    })
 })
 
 // 轉址
 app.get('/:shortenUrl', (req, res) => {
   // 從資料庫比對網址，找出原始網址，重新導向
-  Url.findOne(
-    {
-      shortUrl: req.params.shortenUrl,
-    },
-    (err, url) => {
-      if (err) console.error(err)
-      if (url) {
-        res.redirect(url.originUrl)
-      } else {
-        res.redirect('/')
-      }
-    }
-  )
+
+  findShortUrl(req.params.shortenUrl)
+    .then(url => {
+      console.log(url.originUrl)
+      url ? res.redirect(url.originUrl) : res.redirect('/')
+    })
+    .catch(error => {
+      console.warn(error)
+    })
 })
 
 app.listen(process.env.PORT || port, () => {
