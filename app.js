@@ -8,7 +8,7 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const Url = require('./models/url')
-const generateShortUrl = require('./public/javascripts/generateShortUrl')
+const generateShortUrl = require('./lib/generateShortUrl')
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/shortURL', {
   useNewUrlParser: true,
