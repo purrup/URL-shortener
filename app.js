@@ -62,9 +62,9 @@ app.get('/', (req, res) => {
 
 // 新增一個縮網址
 app.post('/', (req, res) => {
-  findOriginUrl(req.body.originUrl)
-    .then(url => {
-      //如果沒有重複的原始網址，新增縮網址
+  ;(async function start() {
+    try {
+      let url = await findOriginUrl(req.body.originUrl)
       const domainUrl = process.env.HEROKU_URL || 'http://localhost:3000/'
       if (!url) {
         const newUrl = new Url({
@@ -81,24 +81,23 @@ app.post('/', (req, res) => {
         const existedOriginUrl = domainUrl + url.shortUrl
         return res.render('index', { existedOriginUrl })
       }
-    })
-    .catch(error => {
-      console.warn(error)
-    })
+    } catch (e) {
+      console.log(e)
+    }
+  })()
 })
 
 // 轉址
 app.get('/:shortenUrl', (req, res) => {
   // 從資料庫比對網址，找出原始網址，重新導向
-
-  findShortUrl(req.params.shortenUrl)
-    .then(url => {
-      console.log(url.originUrl)
+  ;(async function start() {
+    try {
+      let url = await findShortUrl(req.params.shortenUrl)
       url ? res.redirect(url.originUrl) : res.redirect('/')
-    })
-    .catch(error => {
-      console.warn(error)
-    })
+    } catch (e) {
+      console.log(e)
+    }
+  })()
 })
 
 app.listen(process.env.PORT || port, () => {
